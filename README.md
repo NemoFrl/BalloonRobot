@@ -14,7 +14,7 @@
 2.安装酷q，安装免费版cool air即可，https://cqp.cc/t/23253，</br>
 3.在解压包中解压org.ruiko.lemoc.cpk插件到coolair安装目录下的app目录中</br>
 4.启动酷air，设置lemoc插件，设置自启，并启动服务器。</br>
-5.解压jar包和lib文件夹到同一目录</br>
+5.解压jar包和lib文件夹和start.bat到同一目录</br>
 6.安装java，https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</br>
 7.双击start.bat看到connect success即可。</br>
 8.这样一来你就拥有自己的气球仔啦，接下来和一中的3、4两点相同</br>
