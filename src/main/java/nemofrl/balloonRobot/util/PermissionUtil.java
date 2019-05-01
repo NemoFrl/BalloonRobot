@@ -1,4 +1,4 @@
-package nemofrl.qqForNemo.util;
+package nemofrl.balloonRobot.util;
 
 import java.util.List;
 import java.util.Map;
@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
-import nemofrl.qqForNemo.App;
-import nemofrl.qqForNemo.entity.User;
+import nemofrl.balloonRobot.App;
+import nemofrl.balloonRobot.entity.User;
 
 public class PermissionUtil {
 	private static final Logger logger = LogManager.getLogger(PermissionUtil.class);

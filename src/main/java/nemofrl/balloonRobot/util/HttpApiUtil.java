@@ -1,4 +1,4 @@
-package nemofrl.qqForNemo.util;
+package nemofrl.balloonRobot.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import org.dom4j.Element;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
-import nemofrl.qqForNemo.service.Robot;
+import nemofrl.balloonRobot.service.Robot;
 
 public class HttpApiUtil {
 	private static final Logger logger = LogManager.getLogger(HttpApiUtil.class);

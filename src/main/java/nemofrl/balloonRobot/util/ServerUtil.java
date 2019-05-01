@@ -1,4 +1,4 @@
-package nemofrl.qqForNemo.util;
+package nemofrl.balloonRobot.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,10 +20,10 @@ import com.google.gson.JsonSyntaxException;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
-import nemofrl.qqForNemo.App;
-import nemofrl.qqForNemo.entity.User;
-import nemofrl.qqForNemo.exception.QQException;
-import nemofrl.qqForNemo.service.Robot;
+import nemofrl.balloonRobot.App;
+import nemofrl.balloonRobot.entity.User;
+import nemofrl.balloonRobot.exception.QQException;
+import nemofrl.balloonRobot.service.Robot;
 
 public class ServerUtil {
 	private static final Logger logger = LogManager.getLogger(ServerUtil.class);

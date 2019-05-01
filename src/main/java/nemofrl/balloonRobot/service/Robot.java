@@ -1,4 +1,4 @@
-package nemofrl.qqForNemo.service;
+package nemofrl.balloonRobot.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,14 +21,14 @@ import com.google.gson.Gson;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
-import nemofrl.qqForNemo.App;
-import nemofrl.qqForNemo.entity.User;
-import nemofrl.qqForNemo.exception.QQException;
-import nemofrl.qqForNemo.util.HttpApiUtil;
-import nemofrl.qqForNemo.util.MessageUtil;
-import nemofrl.qqForNemo.util.PermissionUtil;
-import nemofrl.qqForNemo.util.PixivUtil;
-import nemofrl.qqForNemo.util.ServerUtil;
+import nemofrl.balloonRobot.App;
+import nemofrl.balloonRobot.entity.User;
+import nemofrl.balloonRobot.exception.QQException;
+import nemofrl.balloonRobot.util.HttpApiUtil;
+import nemofrl.balloonRobot.util.MessageUtil;
+import nemofrl.balloonRobot.util.PermissionUtil;
+import nemofrl.balloonRobot.util.PixivUtil;
+import nemofrl.balloonRobot.util.ServerUtil;
 
 public class Robot implements Runnable{
 

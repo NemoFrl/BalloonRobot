@@ -1,4 +1,4 @@
-package nemofrl.qqForNemo.exception;
+package nemofrl.balloonRobot.exception;
 
 public class QQException extends Exception{
 

@@ -1,4 +1,4 @@
-package nemofrl.qqForNemo.util;
+package nemofrl.balloonRobot.util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +10,7 @@ import org.java_websocket.client.WebSocketClient;
 
 import com.google.gson.Gson;
 
-import nemofrl.qqForNemo.App;
+import nemofrl.balloonRobot.App;
 
 public class MessageUtil {
 	private static final Logger logger = LogManager.getLogger(MessageUtil.class);

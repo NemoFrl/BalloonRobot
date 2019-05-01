@@ -1,4 +1,4 @@
-package nemofrl.qqForNemo;
+package nemofrl.balloonRobot;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -31,9 +31,9 @@ import com.google.gson.Gson;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
-import nemofrl.qqForNemo.entity.User;
-import nemofrl.qqForNemo.service.Robot;
-import nemofrl.qqForNemo.util.MessageUtil;
+import nemofrl.balloonRobot.entity.User;
+import nemofrl.balloonRobot.service.Robot;
+import nemofrl.balloonRobot.util.MessageUtil;
 
 public class App {
 	
