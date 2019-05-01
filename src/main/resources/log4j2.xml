@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="warn" monitorInterval="600" >
+
+    <Properties>
+        <!-- 配置日志文件输出目录,以下两个属性系统可自动跟据项目相关属性进行识别 -->
+        <Property name="LOG_HOME">logs/</Property>
+        <Property name="FILE_NAME">qqForNemo</Property>
+    </Properties>
+
+	<Appenders>
+		
+		<!--文件日志，注意必须是 RollingRandomAccessFile 标签才能跟据日期切割 -->
+		<RollingRandomAccessFile  name="file" fileName="${LOG_HOME}${FILE_NAME}.log" 
+		filePattern="${LOG_HOME}%d{yyyy-MM-dd}/${FILE_NAME}.log.%d{yyyy-MM-dd-HH}" 
+		immediateFlush="true" append="true">
+			<PatternLayout pattern="%d{DEFAULT} [%t] %-5level %class:%L %M %X{appName} %X{spanId} %X{parentId} %X{traceId} - %msg%xEx%n" charset="UTF-8" />
+		    <Policies>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+        </Policies>
+		</RollingRandomAccessFile>
+		
+
+		<!--控制台日志-->
+		<Console name="console" target="SYSTEM_OUT"   >
+			<PatternLayout pattern="%d{DEFAULT} [%t] %-5level %class:%L %M %X{appName} %X{spanId} %X{parentId} %X{traceId} - %msg%xEx%n" charset="UTF-8" />
+		</Console>
+		
+	</Appenders>
+	
+	<Loggers>
+	
+		<Root level="info" includeLocation="true" additivity="false">
+			<AppenderRef ref="console" />
+			<AppenderRef ref="file" />
+		</Root>
+	</Loggers>
+</Configuration>
+
+
