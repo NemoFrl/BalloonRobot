@@ -46,7 +46,7 @@ public class App {
 	public static void main(String[] args) throws URISyntaxException, InterruptedException, IOException {
 		
 		
-		wsc = new WebSocketClient(new URI("ws://www.fornemo.club:25303"), (Draft) new Draft_17()) {
+		wsc = new WebSocketClient(new URI("ws://127.0.0.1:25303"), (Draft) new Draft_17()) {
 
 			@Override
 			public void onClose(int arg0, String arg1, boolean arg2) {
