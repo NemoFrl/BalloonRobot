@@ -44,5 +44,4 @@ ps-sar 查看Linux服务器网络状态</br>
 @气球仔 复读到q群</br>
 
 四、登录格式约定
-使用如下格式进行登录</br>
 login {"serverIp":"服务器ip","serverUserName":"服务器用户名","serverPassword":"服务器密码","cluster":"饥荒存档名称","robotQQ":"机器人qq","chatList":["可使用气球仔的群聊"]}
