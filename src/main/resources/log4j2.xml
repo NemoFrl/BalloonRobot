@@ -5,7 +5,7 @@
     <Properties>
         <!-- 配置日志文件输出目录,以下两个属性系统可自动跟据项目相关属性进行识别 -->
         <Property name="LOG_HOME">logs/</Property>
-        <Property name="FILE_NAME">qqForNemo</Property>
+        <Property name="FILE_NAME">balloonRobot</Property>
     </Properties>
 
 	<Appenders>

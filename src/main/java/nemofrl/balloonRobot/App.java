@@ -45,36 +45,24 @@ public class App {
 
 	public static void main(String[] args) throws URISyntaxException, InterruptedException, IOException {
 		
+		wsc = new BalloonWebSocketClient(new URI("ws://127.0.0.1:25303"));
 		
-		wsc = new WebSocketClient(new URI("ws://127.0.0.1:25303"), (Draft) new Draft_17()) {
-
-			@Override
-			public void onClose(int arg0, String arg1, boolean arg2) {
-				logger.info("connect close,retry connect");
-			}
-
-			@Override
-			public void onError(Exception arg0) {
-				logger.error("websocket error",arg0);
-			}
-
-			@Override
-			public void onMessage(String msg) {
-				Thread thread = new Thread(new Robot(msg));
-				thread.start();
-			}
-
-			@Override
-			public void onOpen(ServerHandshake arg0) {
-				logger.info("connect success");
-
-			}
-
-		};
 		wsc.connect();
 		
-	
+		
 		while (true) {
+			try {
+			   Thread.sleep(5000);
+	    	   wsc.send("test");
+			} catch(Exception e) {
+				logger.info("retry connect");
+				try {
+					wsc = new BalloonWebSocketClient(new URI("ws://127.0.0.1:25303"));
+					wsc.connect();
+				} catch (Exception e1) {
+					logger.error("retry connect error",e1);
+				}
+			}
 		}
 
 	}
