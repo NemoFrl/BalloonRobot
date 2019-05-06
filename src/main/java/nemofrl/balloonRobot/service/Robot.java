@@ -172,8 +172,9 @@ public class Robot implements Runnable{
 			return;
 		}
 		if (getMsg.contains("色图") || getMsg.contains("gkd")) {
-			String result = PixivUtil.getPixivUrl();
-			MessageUtil.sendMessage(source, result);
+//			String result = PixivUtil.getPixivUrl();
+			MessageUtil.sendMessage(source, "死变态");
+			//MessageUtil.ban(source,"1");
 			return;
 		}
 
@@ -295,12 +296,11 @@ public class Robot implements Runnable{
 				String result = ServerUtil.shServer(source, printList + "&&" + getList, user);
 				if (StringUtils.isNotBlank(result)) {
 					int index=result.lastIndexOf("c_listplayers()");
-					if(index!=-1)
-					result=result.substring(index+17);
-				}
-				if(StringUtils.isNotBlank(result))
-					MessageUtil.sendMessage(source, result);
-				else MessageUtil.sendMessage(source, "没人在玩气球仔哦");
+					if(index!=-1&&index+17<result.length()) {
+						result=result.substring(index+17);
+						MessageUtil.sendMessage(source, result);
+					} else MessageUtil.sendMessage(source, "没人在玩气球仔哦");
+				} else MessageUtil.sendMessage(source, "没人在玩气球仔哦");
 			} catch (QQException e) {
 				if (e.getE() != null)
 					logger.error(e.getMsg(), e.getE());

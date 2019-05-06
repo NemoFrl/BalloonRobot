@@ -45,7 +45,7 @@ public class App {
 
 	public static void main(String[] args) throws URISyntaxException, InterruptedException, IOException {
 		
-		wsc = new BalloonWebSocketClient(new URI("ws://127.0.0.1:25303"));
+		wsc = new BalloonWebSocketClient(new URI("ws://www.fornemo.club:25303"));
 		
 		wsc.connect();
 		

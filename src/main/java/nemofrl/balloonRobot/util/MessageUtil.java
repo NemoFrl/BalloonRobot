@@ -47,6 +47,22 @@ public class MessageUtil {
 		App.wsc.send(sendMsgJson);
 		return true;
 	}
+	public static boolean ban(String source,String time) {
+		Gson sourceGson = new Gson();
+		Map<String, String> sourceMap = sourceGson.fromJson(source, Map.class);
+		
+		Gson gson = new Gson();
+		Map<String, String> msgMap = new HashMap<String, String>();
+		
+		msgMap.put("act", "121");
+		msgMap.put("QQID", sourceMap.get("fromQQ"));
+		msgMap.put("groupid", sourceMap.get("fromGroup"));
+		msgMap.put("duration", time);
+		
+		String sendMsgJson = gson.toJson(msgMap);
+		App.wsc.send(sendMsgJson);
+		return true;
+	}
 
 	
 }
