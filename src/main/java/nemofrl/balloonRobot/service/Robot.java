@@ -296,8 +296,10 @@ public class Robot implements Runnable{
 				String result = ServerUtil.shServer(source, printList + "&&" + getList, user);
 				if (StringUtils.isNotBlank(result)) {
 					int index=result.lastIndexOf("c_listplayers()");
-					if(index!=-1&&index+17<result.length()) {
-						result=result.substring(index+17);
+					if(index!=-1)
+						result=result.substring(index+16);
+					if(result.length()>0) {
+						result=result.substring(1);
 						MessageUtil.sendMessage(source, result);
 					} else MessageUtil.sendMessage(source, "没人在玩气球仔哦");
 				} else MessageUtil.sendMessage(source, "没人在玩气球仔哦");
