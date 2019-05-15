@@ -6,8 +6,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.nio.channels.NotYetConnectedException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +35,7 @@ import nemofrl.balloonRobot.util.MessageUtil;
 import nemofrl.balloonRobot.util.PermissionUtil;
 import nemofrl.balloonRobot.util.PixivUtil;
 import nemofrl.balloonRobot.util.ServerUtil;
+import redis.clients.jedis.Jedis;
 
 public class Robot implements Runnable{
 
@@ -179,10 +186,62 @@ public class Robot implements Runnable{
 		}
 		if(getMsg.equals("ps-info")) {
 			MessageUtil.sendMessage(source, "服务器信息如下：");
-			MessageUtil.sendMessage(source, "服务器IP:"+user.getServerIp()+",存档："+user.getCluster());
+			MessageUtil.sendMessage(source, "服务器IP："+user.getServerIp()+"，存档："+user.getCluster());
 			return;
 		}
+		if(getMsg.equals("dst-death")) {
+			MessageUtil.sendMessage(source, "气球仔死亡记录如下：");
+			Jedis jedis=new Jedis("www.fornemo.club");
+			Map<String,String> deadth=jedis.hgetAll("death");
+			Set<Entry<String,String>> keyValues=deadth.entrySet();
+			Iterator<Entry<String,String>> iter=keyValues.iterator();
+			Map<Integer,String> result=new HashMap<Integer,String>();
+			int max=0;
+			while(iter.hasNext()) {
+				Entry<String,String> keyValue=iter.next();
+				String name=keyValue.getKey();
+				Integer num=Integer.parseInt(keyValue.getValue());
+				if(result.get(num)==null)
+					result.put(num, name);
+				else result.put(num,result.get(num)+"，"+name);
+				if(num>max)
+					max=num;
+			}
+			jedis.close();
+			
+			for(int i=0;i<=max;i++) {
+				if(result.get(i)!=null)
+					MessageUtil.sendMessage(source, i+"次："+result.get(i));
+			}
+			return;
 
+		}
+		if(getMsg.equals("dst-join")) {
+			MessageUtil.sendMessage(source, "气球仔游戏记录如下：");
+			Jedis jedis=new Jedis("www.fornemo.club");
+			Map<String,String> deadth=jedis.hgetAll("join");
+			Set<Entry<String,String>> keyValues=deadth.entrySet();
+			Iterator<Entry<String,String>> iter=keyValues.iterator();
+			Map<Integer,String> result=new HashMap<Integer,String>();
+			int max=0;
+			while(iter.hasNext()) {
+				Entry<String,String> keyValue=iter.next();
+				String name=keyValue.getKey();
+				Integer num=Integer.parseInt(keyValue.getValue());
+				if(result.get(num)==null)
+					result.put(num, name);
+				else result.put(num,result.get(num)+"，"+name);
+				if(num>max)
+					max=num;
+			}
+			jedis.close();
+			
+			for(int i=0;i<=max;i++) {
+				if(result.get(i)!=null)
+					MessageUtil.sendMessage(source, i+"次："+result.get(i));
+			}
+			return;
+		}
 		// MessageUtil.sendMessage(source,"command not found");
 	}
 

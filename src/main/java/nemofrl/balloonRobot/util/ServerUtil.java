@@ -23,6 +23,7 @@ import ch.ethz.ssh2.StreamGobbler;
 import nemofrl.balloonRobot.App;
 import nemofrl.balloonRobot.entity.User;
 import nemofrl.balloonRobot.exception.QQException;
+import nemofrl.balloonRobot.service.DstLog;
 import nemofrl.balloonRobot.service.Robot;
 
 public class ServerUtil {
@@ -75,8 +76,16 @@ public class ServerUtil {
 						sendLog = log;
 						user.setLastLog(log);
 					}
-					if (StringUtils.isNotBlank(sendLog))
+					if (StringUtils.isNotBlank(sendLog)) {
 						MessageUtil.sendMessage(source, sendLog);
+						String name=sendLog.split(" ")[3];
+						if(sendLog.contains("[Death Announcement]")) {
+							new DstLog("death",name).start();
+						}
+						if(sendLog.contains("[Join Announcement]")) {
+							new DstLog("join",name).start();
+						}
+					}
 				} catch (NotYetConnectedException e) {
 					logger.error("NotYetConnectedException", e);
 					MessageUtil.sendMessage(source, e.getMessage());
