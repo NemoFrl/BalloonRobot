@@ -38,14 +38,17 @@ dst-ban #content 禁止进入饥荒服务器3分钟</br>
 dst-msg #content 发送系统消息到饥荒服务器</br>
 dst-back #content 回档#content天</br>
 dst-list #content 查看当前饥荒服务器玩家列表，content为服务器人数</br>
+dst-join 加入游戏次数统计
+dst-death 死亡次数统计
 fd start 开始复读，将所有qq消息推送到饥荒服务器上</br>
 fd cancel 取消复读</br>
 baidu #content 输出百度搜索联想词</br>
 sj start 开始视奸，将饥荒服务器所有消息推送到qq</br>
 sj cancel 取消视奸</br>
 sh #content 执行Linux服务器命令，不支持vim之类的命令，慎用</br>
-ps-aux 查看Linux服务器内存及cpu状态</br>
-ps-sar 查看Linux服务器网络状态</br>
+ps-aux 查看当前Linux服务器内存及cpu状态</br>
+ps-sar 查看当前Linux服务器网络状态</br>
+ps-info 查看当前Linux服务器ip及当前饥荒存档</br>
 @气球仔 复读到q群</br>
 
 四、登录格式约定</br>
