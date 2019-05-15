@@ -55,7 +55,7 @@ public class Robot implements Runnable{
 			contentBody = getMsg.substring(firstBlank + 1);
 		}
 		if (getMsg.equals("login-help")) {
-			String commandList = "login {\r\n" + "	\"serverIp\": \"服务器ip地址\",\r\n"
+			String commandList = "login {\r\n" + "	\"serverIp\": \"服务器ip地址\",\r\n" + "	\"port\": \"服务器端口\",\r\n"
 					+ "	\"serverUserName\": \"服务器用户名\",\r\n" + "	\"serverPassword\": \"服务器密码\",\r\n"
 					+ "	\"cluster\": \"存档名称\",\r\n" + "	\"robotQQ\": \"机器人qq\",\r\n"
 					+ "	\"chatList\": [\"可使用本服务的群\"]\r\n" + "}";
@@ -175,6 +175,11 @@ public class Robot implements Runnable{
 //			String result = PixivUtil.getPixivUrl();
 			MessageUtil.sendMessage(source, "死变态");
 			//MessageUtil.ban(source,"1");
+			return;
+		}
+		if(getMsg.equals("ps-info")) {
+			MessageUtil.sendMessage(source, "服务器信息如下：");
+			MessageUtil.sendMessage(source, "服务器IP:"+user.getServerIp()+",存档："+user.getCluster());
 			return;
 		}
 

@@ -12,6 +12,7 @@ public class User {
 	private String serverIp;
 	private String serverUserName;
 	private String serverPassword;
+	private Integer port;
 	private String cluster;
 	private String adminQQ;
 	private String robotQQ;
@@ -98,5 +99,15 @@ public class User {
 	public void setLastLog(String lastLog) {
 		this.lastLog = lastLog;
 	}
+
+	public Integer getPort() {
+		return port;
+	}
+
+	public void setPort(Integer port) {
+		this.port = port;
+	}
+
+	
 
 }

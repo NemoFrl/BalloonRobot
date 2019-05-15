@@ -120,7 +120,8 @@ public class ServerUtil {
 		String ip=user.getServerIp();
 		String passwd=user.getServerPassword();
 		String userName=user.getServerUserName();
-		Connection conn = new Connection(ip);
+		int port=user.getPort();
+		Connection conn = new Connection(ip,port);
 		
 		boolean flag=false;
 		try {
@@ -147,7 +148,8 @@ public class ServerUtil {
 				if(StringUtils.isAnyBlank(user.getAdminQQ(),user.getCluster(),user.getRobotQQ(),
 						user.getServerIp(),user.getServerPassword(),user.getServerUserName())||user.getChatList()==null)
 					throw new QQException("服务器初始化失败，配置不完整");
-				
+				if(user.getPort()==null)
+					user.setPort(22);
 			} catch(JsonSyntaxException e) {
 				throw new QQException("服务器初始化失败，请输入正确的配置",e);
 			}
