@@ -17,7 +17,7 @@ public class DstLog implements Runnable{
 	}
 	
 	public void run() {
-		Jedis jedis=new Jedis("localhost");
+		Jedis jedis=new Jedis("www.fornemo.club");
 		boolean exist=jedis.exists(type);
 		if(!exist) {
 			Map<String,String> map=new HashMap<String,String>();

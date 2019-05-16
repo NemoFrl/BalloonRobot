@@ -100,14 +100,13 @@ public class Robot implements Runnable{
 			return;
 		}
 		if (firstBlank == -1)
-			notBlankMethod(source, user);
+			notBlankMethod(getMsg,source, user);
 		else
 			blankMethod(commandHead, contentBody, source, user);
 
 	}
 
-	public static void notBlankMethod(String source, User user) {
-		String getMsg = MessageUtil.getMsg(source);
+	public static void notBlankMethod(String getMsg,String source, User user) {
 		if (getMsg.equals("dst-initsteamcmd")) {
 			MessageUtil.sendMessage(source, "开始初始化steamcmd");
 			shCommand(source, "apt-get update", user);
