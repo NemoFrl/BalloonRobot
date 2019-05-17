@@ -15,7 +15,7 @@ import nemofrl.balloonRobot.App;
 public class MessageUtil {
 	private static final Logger logger = LogManager.getLogger(MessageUtil.class);
 	public static String getMsg(String jsonMsg) {
-		logger.info(jsonMsg);
+		//logger.info("recv req:"+jsonMsg);
 		Gson gson = new Gson();
 		Map<String, String> map = gson.fromJson(jsonMsg, Map.class);
 		if (StringUtils.isNotBlank(map.get("msg"))) {

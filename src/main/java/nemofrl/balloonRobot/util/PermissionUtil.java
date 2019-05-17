@@ -39,7 +39,7 @@ public class PermissionUtil {
 			Map<String, User> map=App.userMap;
 			for(String admin:map.keySet()) {
 				if(fromQQ.equals(admin)) {
-					logger.info("私聊-路由到"+admin);
+					logger.info("收到私聊-服务器管理为："+admin+"的请求");
 					return map.get(admin);
 				}
 			}
@@ -50,7 +50,7 @@ public class PermissionUtil {
 			List<String> chatList=en.getValue().getChatList();
 			for(String chat:chatList) {
 				if(fromGroup.equals(chat)) {
-					logger.info("群聊-路由到"+en.getKey());
+					logger.info("收到群聊-服务器管理为："+en.getKey()+"的请求");
 					return en.getValue();
 				}
 			}
