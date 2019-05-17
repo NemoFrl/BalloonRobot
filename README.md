@@ -30,6 +30,7 @@ logout 注销命令，换Linux服务器时必须先注销</br>
 dst #content 饥荒服务器后台命令，如dst c_announce(\"蛇皮\")，注意双引号要转义</br>
 dst-initsteamcmd 安装steamcmd</br>
 dst-update 更新饥荒服务器</br>
+dst-updatebeta 更新为旧神归来测试服</br>
 dst-restartmaster 重启地上服务器</br>
 dst-restartcaves 重启地下服务器</br>
 dst-mod #content 添加mod，需要重启服务器才能生效</br>
@@ -38,11 +39,12 @@ dst-ban #content 禁止进入饥荒服务器3分钟</br>
 dst-msg #content 发送系统消息到饥荒服务器</br>
 dst-back #content 回档#content天</br>
 dst-list #content 查看当前饥荒服务器玩家列表，content为服务器人数</br>
-dst-join 加入游戏次数统计
-dst-death 死亡次数统计
+dst-join 加入游戏次数统计</br>
+dst-death 死亡次数统计</br>
 fd start 开始复读，将所有qq消息推送到饥荒服务器上</br>
 fd cancel 取消复读</br>
 baidu #content 输出百度搜索联想词</br>
+tran #language #content 输出谷歌翻译，language为翻译后的代码，如需翻译成英文则填入en</br>
 sj start 开始视奸，将饥荒服务器所有消息推送到qq</br>
 sj cancel 取消视奸</br>
 sh #content 执行Linux服务器命令，不支持vim之类的命令，慎用</br>
