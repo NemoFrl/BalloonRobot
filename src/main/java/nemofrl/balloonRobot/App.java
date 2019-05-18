@@ -77,6 +77,8 @@ public class App {
 	private static boolean initConfig() {
 		logger.info("初始化气球仔配置...");
 		File conf=new File("src/main/resources/config.json");
+		if(!conf.exists())
+			conf=new File("config.json");
 		String config=null;
 		try {
 			InputStream in=new FileInputStream(conf);
