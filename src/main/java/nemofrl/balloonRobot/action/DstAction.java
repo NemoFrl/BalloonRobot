@@ -282,5 +282,18 @@ public class DstAction extends BaseAction{
 		}
 		return;
 	}
-	
+	@Action("dst-force")
+	public void dstForce() {
+		String screenName = "Master Server " + user.getCluster();
+		String command = "screen -S \"" + screenName + "\" -p 0 -X stuff \"TheWorld.net.components.worldcharacterselectlobby:ForceStart(10) $(printf \\\\r)\"\r\n";
+		shCommand(source, command, user);
+		return;
+	}
+	@Action("dst-fcancel")
+	public void dstFcancel() {
+		String screenName = "Master Server " + user.getCluster();
+		String command = "screen -S \"" + screenName + "\" -p 0 -X stuff \"TheWorld.net.components.worldcharacterselectlobby:CancelForceStart() $(printf \\\\r)\"\r\n";
+		shCommand(source, command, user);
+		return;
+	}
 }
