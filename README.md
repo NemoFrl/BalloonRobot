@@ -43,6 +43,8 @@ dst-back #content 回档#content天</br>
 dst-list #content 查看当前饥荒服务器玩家列表，content为服务器人数</br>
 dst-join 加入游戏次数统计</br>
 dst-death 死亡次数统计</br>
+dst-force 强制开始，10秒</br>
+dst-fcancel 取消强制开始</br>
 fd start 开始复读，将所有qq消息推送到饥荒服务器上</br>
 fd cancel 取消复读</br>
 baidu #content 输出百度搜索联想词</br>
@@ -53,7 +55,7 @@ sh #content 执行Linux服务器命令，不支持vim之类的命令，慎用</b
 ps-aux 查看当前Linux服务器内存及cpu状态</br>
 ps-sar 查看当前Linux服务器网络状态</br>
 ps-info 查看当前Linux服务器ip及当前饥荒存档</br>
-announce #content 仅超级管理员可用，对所有注册到气球仔的管理和群发送公告
+announce #content 仅超级管理员可用，对所有注册到气球仔的管理和群发送公告</br>
 @气球仔 复读到q群</br>
 
 四、登录格式约定</br>
