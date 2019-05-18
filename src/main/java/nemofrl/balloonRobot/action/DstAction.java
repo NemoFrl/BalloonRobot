@@ -216,7 +216,7 @@ public class DstAction extends BaseAction{
 	@Action("dst-death")
 	public void dstDeath() {
 		MessageService.sendMessage(source, "气球仔死亡记录如下：");
-		Jedis jedis=new Jedis(BalloonConfig.websocketUrl);
+		Jedis jedis=new Jedis(BalloonConfig.jedisUrl);
 		Map<String,String> deadth=jedis.hgetAll("death");
 		Set<Entry<String,String>> keyValues=deadth.entrySet();
 		Iterator<Entry<String,String>> iter=keyValues.iterator();
@@ -243,7 +243,7 @@ public class DstAction extends BaseAction{
 	@Action("dst-join")
 	public void dstJoin() {
 		MessageService.sendMessage(source, "气球仔游戏记录如下：");
-		Jedis jedis=new Jedis("www.fornemo.club");
+		Jedis jedis=new Jedis(BalloonConfig.jedisUrl);
 		Map<String,String> deadth=jedis.hgetAll("join");
 		Set<Entry<String,String>> keyValues=deadth.entrySet();
 		Iterator<Entry<String,String>> iter=keyValues.iterator();

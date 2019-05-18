@@ -18,7 +18,7 @@ public class DstLog implements Runnable{
 	}
 	
 	public void run() {
-		Jedis jedis=new Jedis(BalloonConfig.websocketUrl);
+		Jedis jedis=new Jedis(BalloonConfig.jedisUrl);
 		boolean exist=jedis.exists(type);
 		if(!exist) {
 			Map<String,String> map=new HashMap<String,String>();
