@@ -25,10 +25,9 @@ public class MessageService {
 	}
    
 	public static boolean sendMessage(String source,String msg) {
-		Gson sourceGson = new Gson();
-		Map<String, String> sourceMap = sourceGson.fromJson(source, Map.class);
-		
 		Gson gson = new Gson();
+		Map<String, String> sourceMap = gson.fromJson(source, Map.class);
+	
 		Map<String, String> msgMap = new HashMap<String, String>();
 		
 		if(sourceMap.get("act").equals("21")) {
