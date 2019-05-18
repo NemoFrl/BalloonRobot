@@ -31,6 +31,8 @@ dst #content 饥荒服务器后台命令，如dst c_announce(\"蛇皮\")，注�
 dst-initsteamcmd 安装steamcmd</br>
 dst-update 更新饥荒服务器</br>
 dst-updatebeta 更新为旧神归来测试服</br>
+dst-stopmaster 关闭地上服务器</br>
+dst-stopcaves 关闭地下服务器</br>
 dst-restartmaster 重启地上服务器</br>
 dst-restartcaves 重启地下服务器</br>
 dst-mod #content 添加mod，需要重启服务器才能生效</br>
