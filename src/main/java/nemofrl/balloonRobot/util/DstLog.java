@@ -1,9 +1,10 @@
-package nemofrl.balloonRobot.service;
+package nemofrl.balloonRobot.util;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import nemofrl.balloonRobot.config.BalloonConfig;
 import redis.clients.jedis.Jedis;
 
 public class DstLog implements Runnable{
@@ -17,7 +18,7 @@ public class DstLog implements Runnable{
 	}
 	
 	public void run() {
-		Jedis jedis=new Jedis("www.fornemo.club");
+		Jedis jedis=new Jedis(BalloonConfig.websocketUrl);
 		boolean exist=jedis.exists(type);
 		if(!exist) {
 			Map<String,String> map=new HashMap<String,String>();

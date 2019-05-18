@@ -11,10 +11,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import nemofrl.balloonRobot.config.BalloonConfig;
 import nemofrl.balloonRobot.entity.User;
 import nemofrl.balloonRobot.exception.QQException;
-import nemofrl.balloonRobot.util.Action;
-import nemofrl.balloonRobot.util.MessageUtil;
+import nemofrl.balloonRobot.service.Action;
+import nemofrl.balloonRobot.service.MessageService;
 import nemofrl.balloonRobot.util.ServerUtil;
 import redis.clients.jedis.Jedis;
 
@@ -38,7 +39,7 @@ public class DstAction extends BaseAction{
 
 	@Action("dst-initsteamcmd")
 	public void initSteamCmd() {
-		MessageUtil.sendMessage(source, "开始初始化steamcmd");
+		MessageService.sendMessage(source, "开始初始化steamcmd");
 		shCommand(source, "apt-get update", user);
 		shCommand(source, "apt-get -y install lib32gcc1", user);
 		shCommand(source, "apt-get -y install lib32stdc++6", user);
@@ -52,47 +53,61 @@ public class DstAction extends BaseAction{
 		shCommand(source, "cd steamcmd;rm -f steamcmd_linux.tar.gz", user);
 		shCommand(source, "cd steamcmd/linux32;./steamcmd", user);
 		shCommand(source, "mkdir -p .klei/DoNotStarveTogether", user);
-		MessageUtil.sendMessage(source, "steamcmd初始化完成，请更新饥荒服务器");
+		MessageService.sendMessage(source, "steamcmd初始化完成，请更新饥荒服务器");
+	}
+	@Action("dst-stopmaster")
+	public void stopMaster() {
+		MessageService.sendMessage(source, "开始关闭地上饥荒服务器");
+		String screenName = "Master Server " + user.getCluster();
+		String stop = "pkill -f '" + screenName + "'";
+		shCommand(source, stop, user);
+		MessageService.sendMessage(source, "地上饥荒服务器关闭成功");
 	}
 	@Action("dst-restartmaster")
 	public void restartMaster() {
-		MessageUtil.sendMessage(source, "开始重启地上饥荒服务器");
+		stopMaster();
+		MessageService.sendMessage(source, "开始启动地上饥荒服务器");
 		String screenName = "Master Server " + user.getCluster();
-		String stop = "pkill -f '" + screenName + "'";
 		String start = "cd Steam/steamapps/common/Don\\'t\\ Starve\\ Together\\ Dedicated\\ Server/bin;screen -dmS \""
 				+ screenName + "\" ./dontstarve_dedicated_server_nullrenderer -console -cluster "
 				+ user.getCluster() + " -monitor_parent_process $ -shard Master";
-		shCommand(source, stop, user);
 		shCommand(source, start, user);
-		MessageUtil.sendMessage(source, "地上饥荒服务器重启成功");
+		MessageService.sendMessage(source, "地上饥荒服务器启动成功");
+	}
+	@Action("dst-stopcaves")
+	public void stopCaves() {
+		MessageService.sendMessage(source, "开始关闭地下饥荒服务器");
+		String screenName = "Caves Server " + user.getCluster();
+		String stop = "pkill -f '" + screenName + "'";
+		shCommand(source, stop, user);
+		MessageService.sendMessage(source, "地下饥荒服务器关闭成功");
 	}
 	@Action("dst-restartcaves")
 	public void restartCaves() {
-		MessageUtil.sendMessage(source, "开始重启地下饥荒服务器");
+		stopCaves();
+		MessageService.sendMessage(source, "开始启动地下饥荒服务器");
 		String screenName = "Caves Server " + user.getCluster();
-		String stop = "pkill -f '" + screenName + "'";
 		String start = "cd Steam/steamapps/common/Don\\'t\\ Starve\\ Together\\ Dedicated\\ Server/bin;screen -dmS \""
 				+ screenName + "\" ./dontstarve_dedicated_server_nullrenderer -console -cluster "
 				+ user.getCluster() + " -monitor_parent_process $ -shard Caves";
-		shCommand(source, stop, user);
 		shCommand(source, start, user);
-		MessageUtil.sendMessage(source, "地下饥荒服务器成功");
+		MessageService.sendMessage(source, "地下饥荒服务器成功");
 		return;
 	}
 	@Action("dst-update")
 	public void dstUpdate() {
-		MessageUtil.sendMessage(source, "开始更新饥荒服务器");
+		MessageService.sendMessage(source, "开始更新饥荒服务器");
 		String command = "cd steamcmd;./steamcmd.sh +login anonymous +app_update 343050 validate +quit";
 		shCommand(source, command, user);
-		MessageUtil.sendMessage(source, "饥荒服务器更新完成");
+		MessageService.sendMessage(source, "饥荒服务器更新完成");
 		return;
 	}
 	@Action("dst-updatebeta")
 	public void dstUpdateBeta() {
-		MessageUtil.sendMessage(source, "开始更新测试版饥荒服务器");
+		MessageService.sendMessage(source, "开始更新测试版饥荒服务器");
 		String command = "cd steamcmd;./steamcmd.sh +login anonymous +app_update 343050 -beta returnofthembeta +quit";
 		shCommand(source, command, user);
-		MessageUtil.sendMessage(source, "测试版饥荒服务器更新完成");
+		MessageService.sendMessage(source, "测试版饥荒服务器更新完成");
 		return;
 	}
 	@Action("dst-mod")
@@ -109,14 +124,14 @@ public class DstAction extends BaseAction{
 				logger.error(e.getMsg());
 		}
 		if(result==null) {
-			MessageUtil.sendMessage(source, "读取mod配置文件失败，请检查是否已安装饥荒服务器");
+			MessageService.sendMessage(source, "读取mod配置文件失败，请检查是否已安装饥荒服务器");
 			return;
 		}
 		if(!result.contains(contentBody)) {
 			String command = "cd Steam/steamapps/common/Don\\'t\\ Starve\\ Together\\ Dedicated\\ Server/mods/;echo \"ServerModSetup(\\\""+contentBody+"\\\")\" >> dedicated_server_mods_setup.lua";
 			shCommand(source, command, user);
-			MessageUtil.sendMessage(source, "mod添加完成，请重启饥荒服务器");
-		}else MessageUtil.sendMessage(source, "mod添加失败，该mod已存在");
+			MessageService.sendMessage(source, "mod添加完成，请重启饥荒服务器");
+		}else MessageService.sendMessage(source, "mod添加失败，该mod已存在");
 		return;
 	}
 	@Action("dst-kick")
@@ -172,15 +187,15 @@ public class DstAction extends BaseAction{
 					result=result.substring(index+16);
 				if(result.length()>0) {
 					result=result.substring(1);
-					MessageUtil.sendMessage(source, result);
-				} else MessageUtil.sendMessage(source, "没人在玩气球仔哦");
-			} else MessageUtil.sendMessage(source, "没人在玩气球仔哦");
+					MessageService.sendMessage(source, result);
+				} else MessageService.sendMessage(source, "没人在玩气球仔哦");
+			} else MessageService.sendMessage(source, "没人在玩气球仔哦");
 		} catch (QQException e) {
 			if (e.getE() != null)
 				logger.error(e.getMsg(), e.getE());
 			else
 				logger.error(e.getMsg());
-			MessageUtil.sendMessage(source, e.getMsg());
+			MessageService.sendMessage(source, e.getMsg());
 		}
 		return;
 	}
@@ -188,20 +203,20 @@ public class DstAction extends BaseAction{
 	public void fd() {
 		if(!checkBody()) return;
 		if (contentBody.equals("start")) {
-			MessageUtil.sendMessage(source, "开始复读，复读状态下，其余命令无效");
+			MessageService.sendMessage(source, "开始复读，复读状态下，其余命令无效");
 			user.setFudu(true);
 
 		}
 		if (contentBody.equals("cancel")) {
-			MessageUtil.sendMessage(source, "取消复读，其余命令生效");
+			MessageService.sendMessage(source, "取消复读，其余命令生效");
 			user.setFudu(false);
 		}
 		return;
 	}
 	@Action("dst-death")
 	public void dstDeath() {
-		MessageUtil.sendMessage(source, "气球仔死亡记录如下：");
-		Jedis jedis=new Jedis("www.fornemo.club");
+		MessageService.sendMessage(source, "气球仔死亡记录如下：");
+		Jedis jedis=new Jedis(BalloonConfig.websocketUrl);
 		Map<String,String> deadth=jedis.hgetAll("death");
 		Set<Entry<String,String>> keyValues=deadth.entrySet();
 		Iterator<Entry<String,String>> iter=keyValues.iterator();
@@ -221,13 +236,13 @@ public class DstAction extends BaseAction{
 		
 		for(int i=0;i<=max;i++) {
 			if(result.get(i)!=null)
-				MessageUtil.sendMessage(source, i+"次："+result.get(i));
+				MessageService.sendMessage(source, i+"次："+result.get(i));
 		}
 		return;
 	}
 	@Action("dst-join")
 	public void dstJoin() {
-		MessageUtil.sendMessage(source, "气球仔游戏记录如下：");
+		MessageService.sendMessage(source, "气球仔游戏记录如下：");
 		Jedis jedis=new Jedis("www.fornemo.club");
 		Map<String,String> deadth=jedis.hgetAll("join");
 		Set<Entry<String,String>> keyValues=deadth.entrySet();
@@ -248,7 +263,7 @@ public class DstAction extends BaseAction{
 		
 		for(int i=0;i<=max;i++) {
 			if(result.get(i)!=null)
-				MessageUtil.sendMessage(source, i+"次："+result.get(i));
+				MessageService.sendMessage(source, i+"次："+result.get(i));
 		}
 		return;
 	}
@@ -258,11 +273,11 @@ public class DstAction extends BaseAction{
 		Timer timer = user.getTimer();
 		String path = ".klei/DoNotStarveTogether/" + user.getCluster() + "/Master";
 		if (contentBody.equals("start")) {
-			MessageUtil.sendMessage(source, "开始视奸");
+			MessageService.sendMessage(source, "开始视奸");
 			ServerUtil.sjServer(timer, path, source, user);
 		}
 		if (contentBody.equals("cancel")) {
-			MessageUtil.sendMessage(source, "取消视奸");
+			MessageService.sendMessage(source, "取消视奸");
 			timer.cancel();
 		}
 		return;

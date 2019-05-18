@@ -1,4 +1,4 @@
-package nemofrl.balloonRobot.util;
+package nemofrl.balloonRobot.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +12,10 @@ import com.google.gson.Gson;
 
 import nemofrl.balloonRobot.App;
 
-public class MessageUtil {
-	private static final Logger logger = LogManager.getLogger(MessageUtil.class);
+public class MessageService {
+	private static final Logger logger = LogManager.getLogger(MessageService.class);
 	public static String getMsg(String jsonMsg) {
-		//logger.info("recv req:"+jsonMsg);
+		
 		Gson gson = new Gson();
 		Map<String, String> map = gson.fromJson(jsonMsg, Map.class);
 		if (StringUtils.isNotBlank(map.get("msg"))) {
@@ -31,7 +31,7 @@ public class MessageUtil {
 		Gson gson = new Gson();
 		Map<String, String> msgMap = new HashMap<String, String>();
 		
-		if(sourceMap.get("subType").equals("11")) {
+		if(sourceMap.get("act").equals("21")) {
 			msgMap.put("act", "106");
 			msgMap.put("QQID", sourceMap.get("fromQQ"));
 		} else if(sourceMap.get("act").equals("2")) {

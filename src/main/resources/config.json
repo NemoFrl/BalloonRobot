@@ -1,0 +1,7 @@
+{
+	"rebotInfo":"气球仔机器人 version：1.0.1 author：NemoFrl",
+	"websocketUrl":"ws://www.fornemo.club:25303",
+	"jedisUrl":"www.fornemo.club",
+	"clientLimit":"10",
+	"superAdmin":"369143075"
+}

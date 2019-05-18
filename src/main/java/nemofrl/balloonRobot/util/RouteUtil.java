@@ -13,8 +13,8 @@ import com.google.gson.Gson;
 import nemofrl.balloonRobot.App;
 import nemofrl.balloonRobot.entity.User;
 
-public class PermissionUtil {
-	private static final Logger logger = LogManager.getLogger(PermissionUtil.class);
+public class RouteUtil {
+	private static final Logger logger = LogManager.getLogger(RouteUtil.class);
 	
 	public static String getGroup(String jsonMsg) {
 		Gson gson = new Gson();
@@ -33,9 +33,9 @@ public class PermissionUtil {
 		return map.get("fromQQ");
 	}
 	public static User checkChat(String source) {
-		String fromGroup=PermissionUtil.getGroup(source);
+		String fromGroup=RouteUtil.getGroup(source);
 		if(StringUtils.isBlank(fromGroup)) {
-			String fromQQ=PermissionUtil.getQQ(source);
+			String fromQQ=RouteUtil.getQQ(source);
 			Map<String, User> map=App.userMap;
 			for(String admin:map.keySet()) {
 				if(fromQQ.equals(admin)) {

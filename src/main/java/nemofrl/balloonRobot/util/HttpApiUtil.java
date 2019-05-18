@@ -27,7 +27,7 @@ import org.dom4j.Element;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
-import nemofrl.balloonRobot.service.Robot;
+import nemofrl.balloonRobot.service.Core;
 
 public class HttpApiUtil {
 	private static final Logger logger = LogManager.getLogger(HttpApiUtil.class);

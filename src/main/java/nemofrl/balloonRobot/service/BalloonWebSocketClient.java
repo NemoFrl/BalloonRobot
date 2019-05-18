@@ -1,4 +1,4 @@
-package nemofrl.balloonRobot;
+package nemofrl.balloonRobot.service;
 
 import java.net.URI;
 
@@ -6,8 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
-
-import nemofrl.balloonRobot.service.Robot;
 
 public class BalloonWebSocketClient extends WebSocketClient{
 	private static final Logger logger = LogManager.getLogger(BalloonWebSocketClient.class);
@@ -20,12 +18,12 @@ public class BalloonWebSocketClient extends WebSocketClient{
 	@Override
 	public void onOpen(ServerHandshake handshakedata) {
 		// TODO Auto-generated method stub
-		logger.info("connect success");
+		logger.info("connect success to "+this.getURI());
 	}
 
 	@Override
 	public void onMessage(String message) {
-		Thread thread = new Thread(new Robot(message));
+		Thread thread = new Thread(new Core(message));
 		thread.start();
 	}
 

@@ -23,8 +23,8 @@ import ch.ethz.ssh2.StreamGobbler;
 import nemofrl.balloonRobot.App;
 import nemofrl.balloonRobot.entity.User;
 import nemofrl.balloonRobot.exception.QQException;
-import nemofrl.balloonRobot.service.DstLog;
-import nemofrl.balloonRobot.service.Robot;
+import nemofrl.balloonRobot.service.MessageService;
+import nemofrl.balloonRobot.service.Core;
 
 public class ServerUtil {
 	private static final Logger logger = LogManager.getLogger(ServerUtil.class);
@@ -77,7 +77,7 @@ public class ServerUtil {
 						user.setLastLog(log);
 					}
 					if (StringUtils.isNotBlank(sendLog)) {
-						MessageUtil.sendMessage(source, sendLog);
+						MessageService.sendMessage(source, sendLog);
 						String name=sendLog.split(" ")[3];
 						if(sendLog.contains("[Death Announcement]")) {
 							new DstLog("death",name).start();
@@ -88,16 +88,16 @@ public class ServerUtil {
 					}
 				} catch (NotYetConnectedException e) {
 					logger.error("NotYetConnectedException", e);
-					MessageUtil.sendMessage(source, e.getMessage());
+					MessageService.sendMessage(source, e.getMessage());
 				} catch (IOException e) {
 					logger.error("命令执行失败", e);
-					MessageUtil.sendMessage(source, "命令执行失败");
+					MessageService.sendMessage(source, "命令执行失败");
 					this.cancel();
 				} catch (QQException e) {
 					if(e.getE()!=null)
 						logger.error(e.getMsg(), e.getE());
 					else logger.error(e.getMsg());
-					MessageUtil.sendMessage(source, e.getMsg());
+					MessageService.sendMessage(source, e.getMsg());
 				}
 			}
 
@@ -145,7 +145,7 @@ public class ServerUtil {
 		return conn;
 	}
 	public static void initServer(String source,String config) throws QQException {
-		String qq=PermissionUtil.getQQ(source);
+		String qq=RouteUtil.getQQ(source);
 		User user=App.userMap.get(qq);
 		if(user==null) {
 			Gson gson=new Gson();

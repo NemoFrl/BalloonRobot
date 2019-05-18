@@ -6,8 +6,8 @@ import org.apache.logging.log4j.Logger;
 
 import nemofrl.balloonRobot.entity.User;
 import nemofrl.balloonRobot.exception.QQException;
-import nemofrl.balloonRobot.service.Robot;
-import nemofrl.balloonRobot.util.MessageUtil;
+import nemofrl.balloonRobot.service.MessageService;
+import nemofrl.balloonRobot.service.Core;
 import nemofrl.balloonRobot.util.ServerUtil;
 
 public class BaseAction {
@@ -40,19 +40,19 @@ public class BaseAction {
 		try {
 			String result = ServerUtil.shServer(source, command, user);
 			if (StringUtils.isNotBlank(result))
-				MessageUtil.sendMessage(source, result);
+				MessageService.sendMessage(source, result);
 		} catch (QQException e) {
 			if (e.getE() != null)
 				logger.error(e.getMsg(), e.getE());
 			else
 				logger.error(e.getMsg());
-			MessageUtil.sendMessage(source, e.getMsg());
+			MessageService.sendMessage(source, e.getMsg());
 		}
 	}
 	
 	public boolean checkBody() {
 		if(StringUtils.isBlank(this.contentBody)) {
-			MessageUtil.sendMessage(source,"参数不能为空");
+			MessageService.sendMessage(source,"参数不能为空");
 			return false;
 		}
 		else return true;
