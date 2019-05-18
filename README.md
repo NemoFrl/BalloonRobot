@@ -53,6 +53,7 @@ sh #content 执行Linux服务器命令，不支持vim之类的命令，慎用</b
 ps-aux 查看当前Linux服务器内存及cpu状态</br>
 ps-sar 查看当前Linux服务器网络状态</br>
 ps-info 查看当前Linux服务器ip及当前饥荒存档</br>
+announce #content 仅超级管理员可用，对所有注册到气球仔的管理和群发送公告
 @气球仔 复读到q群</br>
 
 四、登录格式约定</br>
