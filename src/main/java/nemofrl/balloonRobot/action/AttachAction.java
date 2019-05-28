@@ -3,6 +3,7 @@ package nemofrl.balloonRobot.action;
 import nemofrl.balloonRobot.service.Action;
 import nemofrl.balloonRobot.service.MessageService;
 import nemofrl.balloonRobot.util.HttpApiUtil;
+import nemofrl.balloonRobot.util.PixivUtil;
 
 public class AttachAction extends BaseAction{
 	private static class AttachActionInstance {
@@ -13,9 +14,9 @@ public class AttachAction extends BaseAction{
 	}
 	@Action("gkd")
 	public void gkd() {
-//		String result = PixivUtil.getPixivUrl();
-		MessageService.sendMessage(source, "死变态");
-		//MessageUtil.ban(source,"1");
+		String result = PixivUtil.getPixivUrl();
+		MessageService.sendMessage(source, result);
+//		MessageService.ban(source,"1");
 		return;
 	}
 	@Action("baidu")
