@@ -1,5 +1,6 @@
 package nemofrl.balloonRobot.action;
 
+import nemofrl.balloonRobot.config.BalloonConfig;
 import nemofrl.balloonRobot.service.Action;
 import nemofrl.balloonRobot.service.MessageService;
 import nemofrl.balloonRobot.util.HttpApiUtil;
@@ -46,4 +47,17 @@ public class AttachAction extends BaseAction{
 			MessageService.sendMessage(source, "气球仔看不懂");
 		return;
 	}
+	
+	@Action(value="startclient",permission="superAdmin")
+	public void startclient() {
+		shCommand(source, "wakeonlan "+BalloonConfig.adminClient, user);
+		MessageService.sendMessage(source, "远程启动气球仔电脑成功");
+	}
+	
+	@Action(value="haizei")
+	public void getNewHaizei() {
+		String newHaizeiString=HttpApiUtil.getNewHaizei(contentBody);
+		MessageService.sendMessage(source, newHaizeiString);
+	}
+	
 }

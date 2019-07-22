@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,6 +30,7 @@ import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
 import nemofrl.balloonRobot.service.Core;
+
 
 public class HttpApiUtil {
 	private static final Logger logger = LogManager.getLogger(HttpApiUtil.class);
@@ -94,4 +97,47 @@ public class HttpApiUtil {
 		return null;
 
 	}
+	
+	public static String getNewHaizei(String h) {
+		HttpClient client = HttpClientBuilder.create().build();
+		try {
+		HttpGet httpGet=new HttpGet("https://prod-api.ishuhui.com/ver/89352976/anime/detail?id=1&type=comics&.json");
+		HttpResponse response = client.execute(httpGet);
+		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+			String json = EntityUtils.toString(response.getEntity(), "UTF-8");
+			Gson gson = new Gson();
+			Map<String,Object> map=gson.fromJson(json, Map.class);
+			map=(Map<String, Object>) map.get("data");
+			map=(Map<String, Object>) map.get("comicsIndexes");
+			map=(Map<String, Object>) map.get("1");
+			int maxNum;
+			if(h==null)
+				maxNum=((Double)map.get("maxNum")).intValue();
+			else maxNum=Integer.valueOf(h);
+			int showLen=((Double) map.get("showLen")).intValue();
+			int startNum=maxNum/showLen*showLen;
+			int endNum=startNum+showLen;
+			String numKey=(startNum+1)+"-"+endNum;
+			map=(Map<String, Object>) map.get("nums");
+			map=(Map<String, Object>) map.get(numKey+"");
+			int num=maxNum;
+			String returnStr="";
+			
+			for(int i=0;i<5;i++) {
+				ArrayList<LinkedTreeMap<String, Object>> allpoint=(ArrayList<LinkedTreeMap<String, Object>>) map.get(num+"");
+				Map<String, Object> point=allpoint.get(0);
+				int id=((Double) point.get("id")).intValue();
+				String title=(String) point.get("title");
+				returnStr+="[海贼王] "+num+"话 "+title+" http://www.hanhuazu.cc/comics/detail/"+id+"\n";
+				num--;
+			}
+			return returnStr.substring(0,returnStr.length()-1);
+		} 
+		} catch (Exception e) {
+			logger.info("error", e);
+		}
+		return null;
+	}
+
 }
+	

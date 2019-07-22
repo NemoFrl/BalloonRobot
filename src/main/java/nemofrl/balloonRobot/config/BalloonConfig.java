@@ -11,4 +11,6 @@ public class BalloonConfig {
 	public static int clientLimit;
 	
 	public static String superAdmin;
+	
+	public static String adminClient;
 }
