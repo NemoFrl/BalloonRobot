@@ -8,10 +8,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -99,9 +101,13 @@ public class HttpApiUtil {
 	}
 	
 	public static String getNewHaizei(String h) {
+		
 		HttpClient client = HttpClientBuilder.create().build();
 		try {
-		HttpGet httpGet=new HttpGet("https://prod-api.ishuhui.com/ver/89352976/anime/detail?id=1&type=comics&.json");
+		String version=getHaizeiVersion();
+		if(StringUtils.isBlank(version))
+				return null;
+		HttpGet httpGet=new HttpGet("https://prod-api.ishuhui.com/ver/"+version+"/anime/detail?id=1&type=comics&.json");
 		HttpResponse response = client.execute(httpGet);
 		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 			String json = EntityUtils.toString(response.getEntity(), "UTF-8");
@@ -115,7 +121,7 @@ public class HttpApiUtil {
 				maxNum=((Double)map.get("maxNum")).intValue();
 			else maxNum=Integer.valueOf(h);
 			int showLen=((Double) map.get("showLen")).intValue();
-			int startNum=maxNum/showLen*showLen;
+			int startNum=maxNum/showLen==(maxNum*1.0/showLen)?maxNum-showLen:maxNum/showLen*showLen;
 			int endNum=startNum+showLen;
 			String numKey=(startNum+1)+"-"+endNum;
 			map=(Map<String, Object>) map.get("nums");
@@ -139,5 +145,18 @@ public class HttpApiUtil {
 		return null;
 	}
 
+	public static String getHaizeiVersion() throws Exception {
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet verGet=new HttpGet("https://prod-u.ishuhui.com/ver");
+		HttpResponse response = client.execute(verGet);
+		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+			String json = EntityUtils.toString(response.getEntity(), "UTF-8");
+			Gson gson = new Gson();
+			Map<String,Object> map=gson.fromJson(json, Map.class);
+			map=(Map<String, Object>) map.get("data");
+			return (String) map.get("comics");
+		}
+		return null;
+	}
 }
 	
