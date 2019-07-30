@@ -95,6 +95,7 @@ public class App {
 			BalloonConfig.superAdmin = (String) map.get("superAdmin");
 			BalloonConfig.rebotInfo = (String) map.get("rebotInfo");
 			BalloonConfig.adminClient = (String) map.get("adminClient");
+			BalloonConfig.pixivUrl = (String) map.get("pixivUrl");
 			logger.info("气球仔配置初始化成功！");
 			logger.info(BalloonConfig.rebotInfo);
 			return true;

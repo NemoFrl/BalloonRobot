@@ -1,5 +1,8 @@
 package nemofrl.balloonRobot.action;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nemofrl.balloonRobot.config.BalloonConfig;
 import nemofrl.balloonRobot.service.Action;
 import nemofrl.balloonRobot.service.MessageService;
@@ -7,6 +10,7 @@ import nemofrl.balloonRobot.util.HttpApiUtil;
 import nemofrl.balloonRobot.util.PixivUtil;
 
 public class AttachAction extends BaseAction{
+	private static final Logger logger = LogManager.getLogger(AttachAction.class);
 	private static class AttachActionInstance {
 		private static final AttachAction INSTANCE = new AttachAction();
 	}
@@ -15,7 +19,12 @@ public class AttachAction extends BaseAction{
 	}
 	@Action("gkd")
 	public void gkd() {
-		String result = PixivUtil.getPixivUrl();
+		String result="搞慢点，顶不住了";
+		try {
+			result = PixivUtil.getPixivUrl();
+		} catch (Exception e) {
+			logger.error("get pixivUrl error",e);
+		}
 		MessageService.sendMessage(source, result);
 //		MessageService.ban(source,"1");
 		return;

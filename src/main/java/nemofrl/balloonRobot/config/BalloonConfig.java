@@ -13,4 +13,6 @@ public class BalloonConfig {
 	public static String superAdmin;
 	
 	public static String adminClient;
+	
+	public static String pixivUrl;
 }

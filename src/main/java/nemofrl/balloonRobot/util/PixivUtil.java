@@ -1,18 +1,24 @@
 package nemofrl.balloonRobot.util;
 
-import java.io.File;
-import java.util.Random;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
+import nemofrl.balloonRobot.config.BalloonConfig;
 
 public class PixivUtil {
 
-	public static String getPixivUrl() {
-		File pixiv=new File("/opt/lampp/htdocs/data/User/admin/home/pixiv/pixiv");
-		String[] dateFilelist=pixiv.list();
-	    int dateIndex=(int)(Math.random()*dateFilelist.length);
-	    File datefile=new File("/opt/lampp/htdocs/data/User/admin/home/pixiv/pixiv/"+dateFilelist[dateIndex]);
-	    String[] photoFilelist=datefile.list();
-	    int photoIndex=(int)(Math.random()*photoFilelist.length);
-	    String pixivUrl="http://www.nemofrl.xyz:8081/index.php?share/file&sid=IPmaERic&user=1&path=%2F"+dateFilelist[dateIndex]+"%2F"+photoFilelist[photoIndex];
-	    return pixivUrl;
+	public static String getPixivUrl() throws Exception {
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet get = new HttpGet(BalloonConfig.pixivUrl); 
+		HttpResponse resp=client.execute(get);
+		if(resp.getStatusLine().getStatusCode()==HttpStatus.SC_OK) {
+			String pictureUrl = EntityUtils.toString(resp.getEntity(), "UTF-8");
+			return BalloonConfig.pixivUrl.substring(0,BalloonConfig.pixivUrl.lastIndexOf("/"))+pictureUrl;
+		}
+	    return null;
 	}
 }
