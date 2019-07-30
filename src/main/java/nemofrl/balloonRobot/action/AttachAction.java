@@ -21,7 +21,7 @@ public class AttachAction extends BaseAction{
 	public void gkd() {
 		String result="搞慢点，顶不住了";
 		try {
-			result = PixivUtil.getPixivUrl();
+			result = PixivUtil.getPixivUrl(contentBody);
 		} catch (Exception e) {
 			logger.error("get pixivUrl error",e);
 		}

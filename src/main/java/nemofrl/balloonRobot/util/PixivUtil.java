@@ -11,9 +11,9 @@ import nemofrl.balloonRobot.config.BalloonConfig;
 
 public class PixivUtil {
 
-	public static String getPixivUrl() throws Exception {
+	public static String getPixivUrl(String id) throws Exception {
 		HttpClient client = HttpClientBuilder.create().build();
-		HttpGet get = new HttpGet(BalloonConfig.pixivUrl); 
+		HttpGet get = new HttpGet(BalloonConfig.pixivUrl+"?id="+id); 
 		HttpResponse resp=client.execute(get);
 		if(resp.getStatusLine().getStatusCode()==HttpStatus.SC_OK) {
 			String pictureUrl = EntityUtils.toString(resp.getEntity(), "UTF-8");
