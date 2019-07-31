@@ -1,20 +1,13 @@
 package nemofrl.balloonRobot.util;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -24,14 +17,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
-import nemofrl.balloonRobot.service.Core;
+import nemofrl.balloonRobot.config.BalloonConfig;
 
 
 public class HttpApiUtil {
@@ -157,6 +147,46 @@ public class HttpApiUtil {
 			return (String) map.get("comics");
 		}
 		return null;
+	}
+	
+	public static String getPixivUrl(String id) throws Exception {
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet get = new HttpGet(BalloonConfig.pixivUrl+"?id="+id); 
+		HttpResponse resp=client.execute(get);
+		if(resp.getStatusLine().getStatusCode()==HttpStatus.SC_OK) {
+			String pictureUrl = EntityUtils.toString(resp.getEntity(), "UTF-8");
+			return BalloonConfig.pixivUrl.substring(0,BalloonConfig.pixivUrl.lastIndexOf("/"))+pictureUrl;
+		}
+	    return null;
+	}
+	
+	public static String getYoutubeUrl(String search) throws Exception {
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet get = new HttpGet(BalloonConfig.youtubeUrl+"/getVideoList?search="+search); 
+		HttpResponse resp=client.execute(get);
+		if(resp.getStatusLine().getStatusCode()==HttpStatus.SC_OK) {
+			String json = EntityUtils.toString(resp.getEntity(), "UTF-8");
+			Gson gson=new Gson();
+			String resultStr="";
+			List<LinkedTreeMap> list=gson.fromJson(json, List.class);
+			for(int i=0;i<list.size();i++) {
+				LinkedTreeMap map=list.get(i);
+				resultStr+="[youtube] "+map.get("videoId")+" "+map.get("title")+"\n";
+			}
+			return resultStr;
+		}
+	    return null;
+	}
+	
+	public static String getYoutubeVideo(String videoId) throws Exception {
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet get = new HttpGet(BalloonConfig.youtubeUrl+"/downloadVideo?videoId="+videoId); 
+		HttpResponse resp=client.execute(get);
+		if(resp.getStatusLine().getStatusCode()==HttpStatus.SC_OK) {
+			String fileUrl = EntityUtils.toString(resp.getEntity(), "UTF-8");
+			return BalloonConfig.youtubeUrl+fileUrl;
+		}
+	    return null;
 	}
 }
 	

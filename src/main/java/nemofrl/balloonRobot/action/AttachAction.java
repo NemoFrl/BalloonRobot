@@ -7,7 +7,6 @@ import nemofrl.balloonRobot.config.BalloonConfig;
 import nemofrl.balloonRobot.service.Action;
 import nemofrl.balloonRobot.service.MessageService;
 import nemofrl.balloonRobot.util.HttpApiUtil;
-import nemofrl.balloonRobot.util.PixivUtil;
 
 public class AttachAction extends BaseAction{
 	private static final Logger logger = LogManager.getLogger(AttachAction.class);
@@ -21,7 +20,7 @@ public class AttachAction extends BaseAction{
 	public void gkd() {
 		String result="搞慢点，顶不住了";
 		try {
-			result = PixivUtil.getPixivUrl(contentBody);
+			result = HttpApiUtil.getPixivUrl(contentBody);
 		} catch (Exception e) {
 			logger.error("get pixivUrl error",e);
 		}
@@ -69,4 +68,25 @@ public class AttachAction extends BaseAction{
 		MessageService.sendMessage(source, newHaizeiString);
 	}
 	
+	@Action(value="ytblist")
+	public void getYtblist() {
+		String ytblist="气球仔抽风了";
+		try {
+			ytblist=HttpApiUtil.getYoutubeUrl(contentBody);
+		} catch (Exception e) {
+			logger.error("get youtube list error",e);
+		}
+		MessageService.sendMessage(source, ytblist);
+	}
+	
+	@Action(value="ytb")
+	public void getYtbVideo() {
+		String ytbVideo="气球仔抽风了";
+		try {
+			ytbVideo=HttpApiUtil.getYoutubeVideo(contentBody);
+		} catch (Exception e) {
+			logger.error("get youtube video error",e);
+		}
+		MessageService.sendMessage(source, ytbVideo);
+	}
 }

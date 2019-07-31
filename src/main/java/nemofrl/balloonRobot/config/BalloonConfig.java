@@ -15,4 +15,6 @@ public class BalloonConfig {
 	public static String adminClient;
 	
 	public static String pixivUrl;
+	
+	public static String youtubeUrl;
 }

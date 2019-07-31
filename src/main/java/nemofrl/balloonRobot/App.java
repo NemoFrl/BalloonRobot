@@ -1,45 +1,26 @@
 package nemofrl.balloonRobot;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.channels.NotYetConnectedException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.drafts.Draft_17;
-
-import org.java_websocket.handshake.ServerHandshake;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import ch.ethz.ssh2.Connection;
-import ch.ethz.ssh2.Session;
-import ch.ethz.ssh2.StreamGobbler;
 import nemofrl.balloonRobot.config.BalloonConfig;
 import nemofrl.balloonRobot.entity.User;
-import nemofrl.balloonRobot.service.MessageService;
 import nemofrl.balloonRobot.service.BalloonWebSocketClient;
-import nemofrl.balloonRobot.service.Core;
 
 public class App {
 	
@@ -96,6 +77,7 @@ public class App {
 			BalloonConfig.rebotInfo = (String) map.get("rebotInfo");
 			BalloonConfig.adminClient = (String) map.get("adminClient");
 			BalloonConfig.pixivUrl = (String) map.get("pixivUrl");
+			BalloonConfig.youtubeUrl = (String) map.get("youtubeUrl");
 			logger.info("气球仔配置初始化成功！");
 			logger.info(BalloonConfig.rebotInfo);
 			return true;
