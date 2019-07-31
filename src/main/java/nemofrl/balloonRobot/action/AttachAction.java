@@ -87,6 +87,9 @@ public class AttachAction extends BaseAction{
 		} catch (Exception e) {
 			logger.error("get youtube video error",e);
 		}
+		
+		MessageService.sendMessage(source, "服务器下载中...以下为访问地址，待下载完毕后可访问");
 		MessageService.sendMessage(source, ytbVideo);
+		
 	}
 }

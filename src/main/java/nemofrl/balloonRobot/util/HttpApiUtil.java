@@ -173,7 +173,7 @@ public class HttpApiUtil {
 				LinkedTreeMap map=list.get(i);
 				resultStr+="[youtube] "+map.get("videoId")+" "+map.get("title")+"\n";
 			}
-			return resultStr;
+			return resultStr.substring(0,resultStr.length()-1);
 		}
 	    return null;
 	}
