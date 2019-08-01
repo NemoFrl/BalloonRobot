@@ -1,5 +1,7 @@
 package nemofrl.balloonRobot.util;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -162,7 +164,8 @@ public class HttpApiUtil {
 	
 	public static String getYoutubeUrl(String search) throws Exception {
 		HttpClient client = HttpClientBuilder.create().build();
-		HttpGet get = new HttpGet(BalloonConfig.youtubeUrl+"/getVideoList?search="+search); 
+		String encodeSearch=URLEncoder.encode(search,StandardCharsets.UTF_8.name());
+		HttpGet get = new HttpGet(BalloonConfig.youtubeUrl+"/getVideoList?search="+encodeSearch); 
 		HttpResponse resp=client.execute(get);
 		if(resp.getStatusLine().getStatusCode()==HttpStatus.SC_OK) {
 			String json = EntityUtils.toString(resp.getEntity(), "UTF-8");
