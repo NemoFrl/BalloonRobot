@@ -202,5 +202,25 @@ public class HttpApiUtil {
 		}
 	    return null;
 	}
+
+	public static String[] getGoogleUrl(String search) throws Exception {
+		HttpClient client = HttpClientBuilder.create().build();
+		String encodeSearch=URLEncoder.encode(search,StandardCharsets.UTF_8.name());
+		HttpGet get = new HttpGet(BalloonConfig.youtubeUrl+"/googleSearch?search="+encodeSearch); 
+		HttpResponse resp=client.execute(get);
+		if(resp.getStatusLine().getStatusCode()==HttpStatus.SC_OK) {
+			String json = EntityUtils.toString(resp.getEntity(), "UTF-8");
+			Gson gson=new Gson();
+			List<LinkedTreeMap> list=gson.fromJson(json, List.class);
+			String[] resultStr=new String[list.size()];
+			
+			for(int i=0;i<list.size();i++) {
+				LinkedTreeMap map=list.get(i);
+				resultStr[i]="[google] "+map.get("title")+"\n"+map.get("link");
+			}
+			return resultStr;
+		}
+	    return null;
+	}
 }
 	

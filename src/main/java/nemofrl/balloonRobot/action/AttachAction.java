@@ -103,4 +103,19 @@ public class AttachAction extends BaseAction{
 		}
 		MessageService.sendMessage(source, ytbstatus);
 	}
+	
+	@Action(value="google")
+	public void google() {
+		String[] googlelist=null;
+		try {
+			googlelist=HttpApiUtil.getGoogleUrl(contentBody);
+		} catch (Exception e) {
+			logger.error("get google list error",e);
+		}
+		if(googlelist.length>0) {
+			for(String google:googlelist)
+				MessageService.sendMessage(source, google);
+		} else MessageService.sendMessage(source, "气球仔抽风了");
+	}
+	
 }
