@@ -92,4 +92,15 @@ public class AttachAction extends BaseAction{
 		MessageService.sendMessage(source, ytbVideo);
 		
 	}
+	
+	@Action(value="ytbstatus")
+	public void getYtbStatus() {
+		String ytbstatus="气球仔抽风了";
+		try {
+			ytbstatus=HttpApiUtil.getYoutubeStatus();
+		} catch (Exception e) {
+			logger.error("get youtube status error",e);
+		}
+		MessageService.sendMessage(source, ytbstatus);
+	}
 }

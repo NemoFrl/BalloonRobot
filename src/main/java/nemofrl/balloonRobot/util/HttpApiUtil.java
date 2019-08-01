@@ -188,5 +188,16 @@ public class HttpApiUtil {
 		}
 	    return null;
 	}
+	
+	public static String getYoutubeStatus() throws Exception {
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpGet get = new HttpGet(BalloonConfig.youtubeUrl+"/getDownloadStatus"); 
+		HttpResponse resp=client.execute(get);
+		if(resp.getStatusLine().getStatusCode()==HttpStatus.SC_OK) {
+			String respStr = EntityUtils.toString(resp.getEntity(), "UTF-8");
+			return respStr;
+		}
+	    return null;
+	}
 }
 	
