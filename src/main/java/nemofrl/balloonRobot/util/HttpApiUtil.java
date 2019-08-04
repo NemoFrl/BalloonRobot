@@ -121,7 +121,7 @@ public class HttpApiUtil {
 			int num=maxNum;
 			String returnStr="";
 			
-			for(int i=0;i<5;i++) {
+			for(int i=0;i<map.size();i++) {
 				ArrayList<LinkedTreeMap<String, Object>> allpoint=(ArrayList<LinkedTreeMap<String, Object>>) map.get(num+"");
 				Map<String, Object> point=allpoint.get(0);
 				int id=((Double) point.get("id")).intValue();
